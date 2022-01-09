@@ -230,13 +230,11 @@ static void verilate(const string& argString) {
 /**
  * @brief C++ 子类向基类的默认提升
  */
-void demo1()
-{
-    std::vector<uint32_t>   vec;
-    std::list<uint32_t>     lst;
+void demo1() {
+    std::vector<uint32_t> vec;
+    std::list<uint32_t> lst;
 
-    for (uint32_t i=0; i<10; i++)
-    {
+    for (uint32_t i = 0; i < 10; i++) {
         vec.push_back(i);
         lst.push_back(i);
     }
@@ -246,7 +244,6 @@ void demo1()
 
     std::find(vec.begin(), vec.end(), 5);
     std::find(lst.begin(), lst.end(), 5);
-
 }
 
 //######################################################################
