@@ -443,7 +443,10 @@ void HierCellsNetListsVisitor::visit(AstCell *nodep)
    * @brief 由于编译抽象语法树是递归逻辑，所以可以利用递归的特性，
    * 利用备忘者模式，使得每个子模块都能知道其对应的父亲
    */
+  // Meaning unknown
   MemoMaker<std::string> memoMaker1(_curModuleInstanceParentName);
+  // Affect the identification of instance name and module name because of the
+  // line "_curModuleInstanceParentName = _curModuleInstanceName;"
   MemoMaker<std::string> memoMaker2(_curModuleInstanceName);
   MemoMaker<PortInstanceFormalComplexMsg> memoMaker3(
     _portInstanceFormalComplexTmp);
