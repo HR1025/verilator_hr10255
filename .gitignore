@@ -6,10 +6,15 @@
 *.old
 *.gz
 *.gz.uu
-*.html
 *.info
 *.log
 *.1
+doxy
+hierCellsNetLists.v
+plainCellsNetLists.v
+.cache
+*.xml
+note/misc/case5
 .*.swp
 *.tmp
 *.tex
@@ -17,6 +22,7 @@
 /Makefile
 /.ccache
 /artifact/
+*.vim
 README
 TAGS
 autom4te.cache

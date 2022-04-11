@@ -203,7 +203,7 @@ static void process() {
           !v3Global.opt.dpiHdrOnly())) {
     // V3EmitXml::emitxml();
     // 1 - 创建层次化网表及层次化网表容器
-    std::unordered_map<std::string, MoudleMsg> hierCellsNetLists,
+    std::unordered_map<std::string, ModuleMsg> hierCellsNetLists,
         plainCellsNetLists;
     // 2 - 获取层次化网表，并且将其反输出到 HDL 文件
     V3EmitHierNetLists::emitHireNetLists(hierCellsNetLists);
@@ -223,6 +223,7 @@ static void verilate(const string &argString) {
   v3Global.readFiles();
 
   // Link, etc, if needed
+  // had been modified by haorui, and we need to know about it.
   if (!v3Global.opt.preprocOnly()) { //
     process();
   }
