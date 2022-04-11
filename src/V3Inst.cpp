@@ -571,9 +571,8 @@ public:
     //
     if (!alwaysCvt && connectRefp &&
         connectRefp->varp()->dtypep()->sameTree(pinVarp->dtypep()) &&
-        !connectRefp->varp()
-             ->isSc()) { // Need the signal as a 'shell' to convert types
-                         // Done. Same data type
+        !connectRefp->varp()->isSc()) { // Need the signal as a 'shell' to
+                                        // convert types Done. Same data type
     } else if (!alwaysCvt && connectRefp && connectRefp->varp()->isIfaceRef()) {
       // Done. Interface
     } else if (!alwaysCvt && connectXRefp && connectXRefp->varp() &&

@@ -9434,10 +9434,10 @@ private:
   bool m_isConstructor : 1; // Is C class constructor
   bool m_isDestructor : 1;  // Is C class destructor
   bool m_isMethod : 1;      // Is inside a class definition
-  bool m_isLoose : 1; // Semantically this is a method, but is implemented as a
-                      // function with an explicitly passed 'self' pointer as
-                      // the first argument
-  bool m_isInline : 1;            // Inline function
+  bool m_isLoose : 1;  // Semantically this is a method, but is implemented as a
+                       // function with an explicitly passed 'self' pointer as
+                       // the first argument
+  bool m_isInline : 1; // Inline function
   bool m_isVirtual : 1;           // Virtual function
   bool m_entryPoint : 1;          // User may call into this top level function
   bool m_pure : 1;                // Pure function

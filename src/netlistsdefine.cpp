@@ -2,13 +2,11 @@
 
 #include <exception>
 
-uint32_t ModuleMsg::inNum(bool onlyIn) const
-{
+uint32_t ModuleMsg::inNum(bool onlyIn) const {
   return onlyIn ? inputs.size() : inputs.size() + inouts.size();
 }
 
-uint32_t ModuleMsg::outNum(bool onlyOut) const
-{
+uint32_t ModuleMsg::outNum(bool onlyOut) const {
   return onlyOut ? outputs.size() : outputs.size() + inouts.size();
 }
 

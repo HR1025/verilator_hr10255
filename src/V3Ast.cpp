@@ -861,8 +861,9 @@ void AstNode::iterateChildren(AstNVisitor &v) {
   ASTNODE_PREFETCH(m_op2p);
   ASTNODE_PREFETCH(m_op3p);
   ASTNODE_PREFETCH(m_op4p);
-  //We have got the information we need from the current node. 
-  //Then judge whether there are children nodes, if it has, access these children and get data
+  // We have got the information we need from the current node.
+  // Then judge whether there are children nodes, if it has, access these
+  // children and get data
   if (m_op1p)
     m_op1p->iterateAndNext(v);
   if (m_op2p)
@@ -915,8 +916,8 @@ void AstNode::iterateAndNext(AstNVisitor &v) {
     // iterateAndNext may miss edits"); Optimization note: Doing PREFETCH_RW on
     // m_iterpp is a net even cppcheck-suppress nullPointer
     niterp->m_iterpp = &niterp;
-    // Accept function is a virtual function. Use the virtual accept function 
-    // so that the execution can step into different derived calsses and the 
+    // Accept function is a virtual function. Use the virtual accept function
+    // so that the execution can step into different derived calsses and the
     // this pointer can point to member of derived classes
     niterp->accept(v);
     // accept may do a replaceNode and change niterp on us...

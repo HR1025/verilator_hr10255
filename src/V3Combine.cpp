@@ -50,9 +50,8 @@ class CombCallVisitor final : CombBaseVisitor {
   // Find all CCALLS of each CFUNC, so that we can later rename them
 private:
   // NODE STATE
-  std::multimap<AstCFunc *, AstCCall *>
-      m_callMmap; // Associative array of {function}{call}
-                  // METHODS
+  std::multimap<AstCFunc *, AstCCall *> m_callMmap; // Associative array of
+                                                    // {function}{call} METHODS
 public:
   void replaceFunc(AstCFunc *oldfuncp, AstCFunc *newfuncp) {
     if (oldfuncp == newfuncp)

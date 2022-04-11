@@ -57,7 +57,7 @@ private:
   string m_hashName;           // Hashed name for profile-driven optimization
   uint32_t m_priority = 0;     // Predicted critical path from the start of
                                // this mtask to the ends of the graph that are
-                           // reachable from this mtask. In abstract time units.
+  // reachable from this mtask. In abstract time units.
   uint32_t m_cost = 0;         // Predicted runtime of this mtask, in the same
                                // abstract time units as priority().
   uint64_t m_predictStart = 0; // Predicted start time of task

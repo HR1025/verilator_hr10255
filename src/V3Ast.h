@@ -1432,11 +1432,12 @@ public:
   /**
    * @brief 迭代器函数
    */
-  //The reason why AstNVisitor and AstNode both have iterate function is that:
-  //First, we should access the children nodes of the Ast tree.
-  //Second, we can only obtain the data from AstNode and its derived classes by accept function.
-  //Third, the arguments of accept function is AstNVisitor.
-  //Fourth, reduce the amount of code. For example, reduce the number of if(m_op1p)...
+  // The reason why AstNVisitor and AstNode both have iterate function is that:
+  // First, we should access the children nodes of the Ast tree.
+  // Second, we can only obtain the data from AstNode and its derived classes by
+  // accept function. Third, the arguments of accept function is AstNVisitor.
+  // Fourth, reduce the amount of code. For example, reduce the number of
+  // if(m_op1p)...
   /// Call visit()s on nodep
   void iterate(AstNode *nodep);
   /// Call visit()s on nodep

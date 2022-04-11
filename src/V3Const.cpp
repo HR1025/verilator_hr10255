@@ -3070,7 +3070,7 @@ private:
         varrefp                       // Don't do messes with BITREFs/ARRAYREFs
         && !varrefp->varp()->valuep() // Not already constified
         && !varrefp->varScopep()) {   // Not scoped (or each scope may have
-                                    // different initial value)
+                                      // different initial value)
       // ASSIGNW (VARREF, const) -> INITIAL ( ASSIGN (VARREF, const) )
       UINFO(4, "constAssignW " << nodep << endl);
       // Make a initial assignment

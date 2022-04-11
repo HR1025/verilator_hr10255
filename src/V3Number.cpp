@@ -321,7 +321,7 @@ void V3Number::V3NumberCreate(AstNode *nodep, const char *sourcep,
       case 'o':
       case 'c': {
         switch (tolower(*cp)) {
-        // clang-format off
+          // clang-format off
                 case '0': setBit(obit++, 0); setBit(obit++, 0);  setBit(obit++, 0);  break;
                 case '1': setBit(obit++, 1); setBit(obit++, 0);  setBit(obit++, 0);  break;
                 case '2': setBit(obit++, 0); setBit(obit++, 1);  setBit(obit++, 0);  break;

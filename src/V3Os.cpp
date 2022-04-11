@@ -310,7 +310,7 @@ uint64_t V3Os::timeUsecs() {
   static const uint64_t EPOCH_DIFFERENCE_USECS = 11644473600000000ULL;
 
   FILETIME
-      ft; // contains number of 0.1us intervals since the beginning of 1601 UTC.
+  ft; // contains number of 0.1us intervals since the beginning of 1601 UTC.
   GetSystemTimeAsFileTime(&ft);
   uint64_t us = ((static_cast<uint64_t>(ft.dwHighDateTime) << 32) +
                  ft.dwLowDateTime + 5ULL) /
