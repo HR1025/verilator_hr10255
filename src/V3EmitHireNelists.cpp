@@ -227,65 +227,60 @@ private:
   std::vector<PortInstanceMsg>
       _curModulePortInstanceMsg; // 当前模块的引脚实例信息
 
-  private:
-    // All information we can get from this Ast tree by using the
-    // polymorphic preperties to call different visit function. And
-    // AstNetlist is the first node of the Ast tree. Becaus we have no
-    // information needed to get from it, we only iterate over it to
-    // access its children nodes.
+private:
+  // All information we can get from this Ast tree by using the
+  // polymorphic preperties to call different visit function. And
+  // AstNetlist is the first node of the Ast tree. Becaus we have no
+  // information needed to get from it, we only iterate over it to
+  // access its children nodes.
 
-    // A visit function will be popped up from or not pushed to the function
-    // stack after finishing obtainning data only in the following three cases:
-    // (1)node has no children. For example, AstConst node.(Not pushed to)
-    // (2)node is pointed by m_nextp and its children pointed by m_opxp have
-    // been visited, such as AstAssignW node.(Popped up from)
-    // (3)node is pointed by m_opxp and its children pointed by m_opxp have
-    // been visited. But its iterateAndNext() function will be popped up from
-    // function stack only when its all descendants have been visited such as
-    // AstModule node.(Popped up from)
-    // Note: m_opxp = m_op1p or m_op2p or m_op3p or m_op4p
-    // Note: This is also a reason why separating m_opxp and m_nextp by
-    // AstNode::iterateChildren and AstNode::iterateAndNext
-    // If A->B by m_nextp, it means that they are parallel, and the information
-    // extraction between them will not affect each other.
-    // If A->B by m_opxp, it means that They are service relationships, where
-    // all information of B is to serve A or A's ancestors that is pointed by
-    // m_nextp.
-    virtual void visit(AstNode *nodep) override { iterateChildren(nodep); }
+  // A visit function will be popped up from or not pushed to the function
+  // stack after finishing obtainning data only in the following three cases:
+  // (1)node has no children. For example, AstConst node.(Not pushed to)
+  // (2)node is pointed by m_nextp and its children pointed by m_opxp have
+  // been visited, such as AstAssignW node.(Popped up from)
+  // (3)node is pointed by m_opxp and its children pointed by m_opxp have
+  // been visited. But its iterateAndNext() function will be popped up from
+  // function stack only when its all descendants have been visited such as
+  // AstModule node.(Popped up from)
+  // Note: m_opxp = m_op1p or m_op2p or m_op3p or m_op4p
+  // Note: This is also a reason why separating m_opxp and m_nextp by
+  // AstNode::iterateChildren and AstNode::iterateAndNext
+  // If A->B by m_nextp, it means that they are parallel, and the information
+  // extraction between them will not affect each other.
+  // If A->B by m_opxp, it means that They are service relationships, where
+  // all information of B is to serve A or A's ancestors that is pointed by
+  // m_nextp.
+  virtual void visit(AstNode *nodep) override { iterateChildren(nodep); }
 
-    virtual void visit(AstModule *nodep) override;
-    virtual void visit(AstVar *nodep) override;
-    virtual void visit(AstVarRef *nodep) override;
-    virtual void visit(AstCell *nodep) override;
-    virtual void visit(AstConcat *nodep) override;
-    virtual void visit(AstPin *nodep) override;
-    virtual void visit(AstNodeAssign *nodep) override;
-    virtual void visit(AstConst *nodep) override;
-    virtual void visit(AstSel *nodep) override;
-    virtual void visit(AstExtend *nodep) override
-    {
-      // nodep->width();//All children length including it 0 extension.
-      // nodep->m_op1p->width();//Except its 0 extension, all children length
-      iterateChildren(nodep);
-    }
-    virtual void visit(AstExtendS *nodep) override
-    {
-      // nodep->width();//All children length including it 1 extension.
-      // nodep->m_op1p->width();//Except its 1 extension, all children length
-      iterateChildren(nodep);
-    }
-    virtual void visit(AstReplicate *nodep) override
-    {
-      iterateChildren(nodep);
-    }
-    virtual void visit(AstAssignW *nodep) override { iterateChildren(nodep); };
-    virtual void visit(AstAssign *nodep) override { iterateChildren(nodep); };
+  virtual void visit(AstModule *nodep) override;
+  virtual void visit(AstVar *nodep) override;
+  virtual void visit(AstVarRef *nodep) override;
+  virtual void visit(AstCell *nodep) override;
+  virtual void visit(AstConcat *nodep) override;
+  virtual void visit(AstPin *nodep) override;
+  virtual void visit(AstNodeAssign *nodep) override;
+  virtual void visit(AstConst *nodep) override;
+  virtual void visit(AstSel *nodep) override;
+  virtual void visit(AstExtend *nodep) override {
+    // nodep->width();//All children length including it 0 extension.
+    // nodep->m_op1p->width();//Except its 0 extension, all children length
+    iterateChildren(nodep);
+  }
+  virtual void visit(AstExtendS *nodep) override {
+    // nodep->width();//All children length including it 1 extension.
+    // nodep->m_op1p->width();//Except its 1 extension, all children length
+    iterateChildren(nodep);
+  }
+  virtual void visit(AstReplicate *nodep) override { iterateChildren(nodep); }
+  virtual void visit(AstAssignW *nodep) override { iterateChildren(nodep); };
+  virtual void visit(AstAssign *nodep) override { iterateChildren(nodep); };
 
-  public:
-    /**
-     * @brief 获取层次化网表
-     */
-    std::unordered_map<std::string, ModuleMsg> GetHierCellsNetLists();
+public:
+  /**
+   * @brief 获取层次化网表
+   */
+  std::unordered_map<std::string, ModuleMsg> GetHierCellsNetLists();
 
 public:
   // AstNetlist is ConElement
@@ -495,8 +490,7 @@ void HierCellsNetListsVisitor::visit(AstConst *nodep) {
   // std::cout << nodep->width() << std::endl;
   // std::cout << nodep->num().m_value.m_inlined[0].m_value << std::endl;
   // std::cout << nodep->num().m_value.m_inlined[0].m_valueX << std::endl;
-  if(_assignStatus.isAssignStatement)
-  {
+  if (_assignStatus.isAssignStatement) {
     _assignStatus.ProcessIndexRange(nodep->prettyName());
   } else {
     // 匿名赋值到这里就已经结束了，手动压入端口实例形参信息临时变量

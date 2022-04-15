@@ -24,12 +24,11 @@ enum class PortType {
  * @sa    PortType
  */
 // It is used to store input, output, inout and wire definition.
-struct PortMsg
-{
-    std::string portDefName;               // 端口定义名称
-    PortType portType = PortType::UNKNOWN; // 端口类型
-    bool isArray = false;                  // 是否是数组
-    uint32_t arraySize = 1;                // 数组大小
+struct PortMsg {
+  std::string portDefName;               // 端口定义名称
+  PortType portType = PortType::UNKNOWN; // 端口类型
+  bool isArray = false;                  // 是否是数组
+  uint32_t arraySize = 1;                // 数组大小
 };
 
 /**
@@ -39,27 +38,24 @@ struct PortMsg
  */
 // It only stores one bit information, for example, C[1], 1'b0, ci, not store
 // C[1:0]
-struct PortInstanceFormalMsg
-{
-    std::string portInstanceName = "anonymous"; // 端口实例名称 (实参)
-    bool isArray = false;                       // 是否是数组类型
-    union
-    {
-        uint32_t index;      // 索引
-        uint32_t initialVal; // 初始值，在 portInstanceName ==
-                             // "anonymous" 下使用
-    };
+struct PortInstanceFormalMsg {
+  std::string portInstanceName = "anonymous"; // 端口实例名称 (实参)
+  bool isArray = false;                       // 是否是数组类型
+  union {
+    uint32_t index;      // 索引
+    uint32_t initialVal; // 初始值，在 portInstanceName ==
+                         // "anonymous" 下使用
+  };
 };
 
 /** @brief 端口实例信息
  *  @note  只需要知道端口的形参以及实参即可
  * */
-struct PortInstanceMsg
-{
-    std::string portDefName; // 端口定义名称 (形参)
-    // Everytime, it only pushes one bit information, for example, C[1], 1'b0,
-    // ci, not store C[1:0]
-    std::vector<PortInstanceFormalMsg>
+struct PortInstanceMsg {
+  std::string portDefName; // 端口定义名称 (形参)
+  // Everytime, it only pushes one bit information, for example, C[1], 1'b0,
+  // ci, not store C[1:0]
+  std::vector<PortInstanceFormalMsg>
       portInstanceFormalMsgs; // 端口实例组 (实参,参考 c++ 初始化列表)
 };
 
@@ -70,10 +66,9 @@ struct PortInstanceMsg
  */
 // It is used to store one bit assign statement, for example, C[1]=1'b0,
 // C[2] = ci, not sotre C[1:0] = {1'b0, co} or C[1:0] = B[1:0];
-struct AssignStatementMsg
-{
-    PortInstanceFormalMsg lValue; // 左值
-    PortInstanceFormalMsg rValue; // 右值
+struct AssignStatementMsg {
+  PortInstanceFormalMsg lValue; // 左值
+  PortInstanceFormalMsg rValue; // 右值
 };
 
 /**
@@ -84,17 +79,16 @@ struct AssignStatementMsg
  *        3 - 需要知道使用到的子模块的引脚及其实例
  * (由于传入本身就不保证顺序，所以这里不保证)\ 4 - 模块的引脚信息
  */
-struct ModuleMsg
-{
-  public:
-    // std::string -> subModuleInstanceName, for example, U1,
-    // std::string -> subModuleDefName, for example, full_adder
-    // for example,{{U1,full_adder_co},{U2,full_adder_sum},...}
-    using ModuleDefInstanceMap = std::unordered_map<std::string, std::string>;
-    // std::string -> subModuleInstanceName, for example, U1
-    // std::vector<PortInstanceMsg> -> 实例引脚表, for example,
-    // {{U1,{.co(co),.A(a),.B(b),.ci(ci)}},{U2,{.sum(sum),.A(a),.B(b),.ci(ci)}},...}
-    using SubModulePorts =
+struct ModuleMsg {
+public:
+  // std::string -> subModuleInstanceName, for example, U1,
+  // std::string -> subModuleDefName, for example, full_adder
+  // for example,{{U1,full_adder_co},{U2,full_adder_sum},...}
+  using ModuleDefInstanceMap = std::unordered_map<std::string, std::string>;
+  // std::string -> subModuleInstanceName, for example, U1
+  // std::vector<PortInstanceMsg> -> 实例引脚表, for example,
+  // {{U1,{.co(co),.A(a),.B(b),.ci(ci)}},{U2,{.sum(sum),.A(a),.B(b),.ci(ci)}},...}
+  using SubModulePorts =
       std::unordered_map<std::string, std::vector<PortInstanceMsg>>;
 
 public:
