@@ -852,6 +852,8 @@ void AstNode::operator delete(void *objp, size_t size) {
 /**
  * @brief 访问节点的孩子
  */
+// iterateChildren function means visiting derived classes of AstNode by m_opxp
+// Note: m_opxp = m_op1p or m_op2p or m_op3p or m_op4p
 void AstNode::iterateChildren(AstNVisitor &v) {
   // This is a very hot function
   // Optimization note: Grabbing m_op#p->m_nextp is a net loss
@@ -891,12 +893,17 @@ void AstNode::iterateChildrenConst(AstNVisitor &v) {
     m_op4p->iterateAndNextConst(v);
 }
 
+// iterateAndNext function means visiting derived class of AstNode by m_nextp
 void AstNode::iterateAndNext(AstNVisitor &v) {
   // This is a very hot function
   // IMPORTANT: If you replace a node that's the target of this iterator,
   // then the NEW node will be iterated on next, it isn't skipped!
   // Future versions of this function may require the node to have a back to be
   // iterated; there's no lower level reason yet though the back must exist.
+  //
+  // Because the type of this pointer is unknown, we should make sure it is
+  // basic class pointer, so that when we call accept() function, we can use
+  // the polymorphism of C++.
   AstNode *nodep = this;
 #ifdef VL_DEBUG // Otherwise too hot of a function for debug
                 // Branch prediction optimization
